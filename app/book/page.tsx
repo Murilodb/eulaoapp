@@ -33,7 +33,7 @@ export default function BookingPage() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 h-20">
         <div className="max-w-7xl mx-auto px-8 h-full flex justify-between items-center text-primary">
           <div className="flex items-center gap-4">
-            <h1 className="text-2xl font-bold tracking-tighter">Sentobar</h1>
+            <h1 className="text-2xl font-bold tracking-tighter">Gendei</h1>
             <div className="h-4 w-px bg-outline-variant/30 mx-2 hidden md:block" />
             <span className="text-[10px] font-bold text-secondary uppercase tracking-[0.3em] hidden md:block">Barbearia Premium</span>
           </div>
@@ -241,7 +241,7 @@ export default function BookingPage() {
       <footer className="bg-white border-t border-outline-variant/30 py-20 mt-20">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="space-y-4">
-             <h2 className="text-2xl font-bold text-primary tracking-tighter">Sentobar</h2>
+             <h2 className="text-2xl font-bold text-primary tracking-tighter">Gendei</h2>
              <p className="text-sm text-outline font-medium leading-relaxed">O Padrão de Excelência em Cuidados Masculinos. Experimente a arte da precisão.</p>
           </div>
           <div className="flex flex-col gap-3 font-bold text-[10px] uppercase tracking-[0.3em] text-outline">
@@ -260,7 +260,7 @@ export default function BookingPage() {
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-8 mt-20 pt-8 border-t border-outline-variant/10 text-center text-[10px] font-bold uppercase tracking-[0.4em] text-outline/40">
-           © 2023 SENTOBAR PREMIUM GROOMING. TODOS OS DIREITOS RESERVADOS.
+           © 2023 GENDEI PREMIUM GROOMING. TODOS OS DIREITOS RESERVADOS.
         </div>
       </footer>
     </div>

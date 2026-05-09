@@ -70,7 +70,7 @@ export default function LoginPage() {
         >
           <div className="flex items-center gap-3 mb-2">
             <Scissors className="text-secondary-fixed w-10 h-10" />
-            <h1 className="text-3xl font-bold text-surface tracking-tight uppercase">Sentobar</h1>
+            <h1 className="text-3xl font-bold text-surface tracking-tight uppercase">Gendei</h1>
           </div>
           <p className="text-xs font-semibold text-outline uppercase tracking-[0.2em]">Console Master de Barbearia</p>
         </motion.div>
@@ -104,7 +104,7 @@ export default function LoginPage() {
                       className="bg-on-surface border-outline-variant/20 pl-12 text-surface focus-visible:ring-secondary-fixed h-14" 
                       id="email" 
                       name="email" 
-                      placeholder="name@sentobar.com" 
+                      placeholder="name@gendei.com" 
                       type="email"
                     />
                   </div>

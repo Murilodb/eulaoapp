@@ -7,21 +7,21 @@ async function main() {
   const hashedPassword = await bcrypt.hash("admin123", 10);
   
   const tenant = await prisma.tenant.upsert({
-    where: { slug: "sentobar-master" },
+    where: { slug: "gendei-master" },
     update: {},
     create: {
-      name: "Sentobar Master",
-      slug: "sentobar-master",
+      name: "Gendei Master",
+      slug: "gendei-master",
       address: "Rua Nefertiti, 123",
       phone: "(11) 99999-9999",
     },
   });
 
   await prisma.user.upsert({
-    where: { email: "admin@sentobar.com.br" },
+    where: { email: "admin@gendei.com.br" },
     update: {},
     create: {
-      email: "admin@sentobar.com.br",
+      email: "admin@gendei.com.br",
       name: "Administrador",
       password: hashedPassword,
       role: "ADMIN",

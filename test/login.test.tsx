@@ -12,24 +12,24 @@ vi.mock('next-auth/react', () => ({
 describe('Página de Login', () => {
   it('deve renderizar os campos de e-mail e senha', () => {
     render(<LoginPage />);
-    expect(screen.getByPlaceholderText(/name@sentobar.com/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/name@gendei.com/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/••••••••/i)).toBeInTheDocument();
   });
 
   it('deve chamar a função signIn ao submeter o formulário', async () => {
     render(<LoginPage />);
     
-    const emailInput = screen.getByPlaceholderText(/name@sentobar.com/i);
+    const emailInput = screen.getByPlaceholderText(/name@gendei.com/i);
     const passwordInput = screen.getByPlaceholderText(/••••••••/i);
     const submitButton = screen.getByRole('button', { name: /entrar/i });
 
-    fireEvent.change(emailInput, { target: { value: 'admin@sentobar.com.br' } });
+    fireEvent.change(emailInput, { target: { value: 'admin@gendei.com.br' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(signIn).toHaveBeenCalledWith('credentials', expect.objectContaining({
-        email: 'admin@sentobar.com.br',
+        email: 'admin@gendei.com.br',
         password: 'password123',
       }));
     });

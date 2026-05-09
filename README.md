@@ -1,6 +1,6 @@
-# Sentobar | Console Master de Barbearia
+# Gendei | Console Master de Barbearia
 
-**Sentobar** é uma plataforma micro-SaaS profissional e multi-tenant (multi-empresa), projetada especificamente para o mercado de barbearias de alto padrão. Combina agendamento de precisão, gestão de clientes e notificações automatizadas via WhatsApp para oferecer uma experiência premium tanto para os donos de barbearia quanto para seus clientes.
+**Gendei** é uma plataforma micro-SaaS profissional e multi-tenant (multi-empresa), projetada especificamente para o mercado de barbearias de alto padrão. Combina agendamento de precisão, gestão de clientes e notificações automatizadas via WhatsApp para oferecer uma experiência premium tanto para os donos de barbearia quanto para seus clientes.
 
 ---
 
@@ -65,7 +65,7 @@ npx prisma db seed
 ```
 
 **Credenciais padrão do Seed:**
-- **Email:** `admin@sentobar.com.br`
+- **Email:** `admin@gendei.com.br`
 - **Senha:** `admin123`
 - **Role:** `ADMIN`
 

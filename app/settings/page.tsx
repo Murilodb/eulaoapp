@@ -46,11 +46,11 @@ export default function SettingsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                  <div className="space-y-2">
                     <label className="text-[10px] font-bold text-outline uppercase tracking-widest">Nome da Barbearia</label>
-                    <Input defaultValue="Sentobar Premium Grooming" className="bg-surface-container-low/50 border-none h-12" />
+                    <Input defaultValue="Gendei Premium Grooming" className="bg-surface-container-low/50 border-none h-12" />
                  </div>
                  <div className="space-y-2">
                     <label className="text-[10px] font-bold text-outline uppercase tracking-widest">Slug (URL)</label>
-                    <Input defaultValue="sentobar" disabled className="bg-surface-container-low/30 border-none h-12 italic text-outline" />
+                    <Input defaultValue="gendei" disabled className="bg-surface-container-low/30 border-none h-12 italic text-outline" />
                  </div>
                  <div className="space-y-2">
                     <label className="text-[10px] font-bold text-outline uppercase tracking-widest">Telefone de Contato</label>

@@ -33,7 +33,7 @@ export function Sidebar({ active }: SidebarProps) {
   return (
     <aside className="w-64 border-r border-outline-variant bg-surface flex flex-col h-screen fixed left-0 top-0 z-50">
       <div className="p-8">
-        <h1 className="text-2xl font-bold text-primary tracking-tight">Sentobar</h1>
+        <h1 className="text-2xl font-bold text-primary tracking-tight">Gendei</h1>
         <p className="text-[10px] font-semibold text-outline tracking-wider uppercase mt-1">Console Master de Barbearia</p>
       </div>
 

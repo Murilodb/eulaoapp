@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     const validatedData = serviceSchema.parse(body);
 
     // Hardcoded tenantId for demo, in production get from session
-    const tenantId = "sentobar-tenant-id"; 
+    const tenantId = "gendei-tenant-id"; 
 
     const service = await prisma.service.create({
       data: {

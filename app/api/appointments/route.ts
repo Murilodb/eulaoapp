@@ -58,7 +58,7 @@ export async function POST(req: Request) {
     }
 
     // Tenant check (mocked for demo)
-    const tenantId = "sentobar-tenant-id";
+    const tenantId = "gendei-tenant-id";
 
     const appointment = await prisma.appointment.create({
       data: {

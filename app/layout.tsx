@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Sentobar | Master Barber Console',
+  title: 'Gendei | Master Barber Console',
   description: 'Professional grooming management and precision scheduling.',
 };
 
