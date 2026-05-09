@@ -1,0 +1,130 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  BARBER
+  RECEPTIONIST
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String
+  role          UserRole  @default(BARBER)
+  tenantId      String
+  tenant        Tenant    @relation(fields: [tenantId], references: [id])
+  barberProfile Barber?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Tenant {
+  id           String    @id @default(cuid())
+  name         String
+  slug         String    @unique
+  address      String?
+  phone        String?
+  logoUrl      String?
+  users        User[]
+  services     Service[]
+  barbers      Barber[]
+  clients      Client[]
+  appointments Appointment[]
+  settings     Json?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Barber {
+  id           String    @id @default(cuid())
+  userId       String    @unique
+  user         User      @relation(fields: [userId], references: [id])
+  tenantId     String
+  tenant       Tenant    @relation(fields: [tenantId], references: [id])
+  specialty    String?
+  isActive     Boolean   @default(true)
+  appointments Appointment[]
+  workingHours WorkingHours[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Service {
+  id           String    @id @default(cuid())
+  name         String
+  description  String?
+  price        Int       // In cents
+  duration     Int       // In minutes
+  tenantId     String
+  tenant       Tenant    @relation(fields: [tenantId], references: [id])
+  appointments Appointment[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Client {
+  id           String    @id @default(cuid())
+  name         String
+  email        String?
+  phone        String?
+  tenantId     String
+  tenant       Tenant    @relation(fields: [tenantId], references: [id])
+  appointments Appointment[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([tenantId, email])
+}
+
+model Appointment {
+  id           String            @id @default(cuid())
+  tenantId     String
+  tenant       Tenant            @relation(fields: [tenantId], references: [id])
+  barberId     String
+  barber       Barber            @relation(fields: [barberId], references: [id])
+  clientId     String
+  client       Client            @relation(fields: [clientId], references: [id])
+  serviceId    String
+  service      Service           @relation(fields: [serviceId], references: [id])
+  startTime    DateTime
+  endTime      DateTime
+  status       AppointmentStatus @default(PENDING)
+  notes        String?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  @@index([startTime])
+  @@index([barberId, startTime])
+}
+
+model WorkingHours {
+  id           String    @id @default(cuid())
+  barberId     String
+  barber       Barber    @relation(fields: [barberId], references: [id])
+  dayOfWeek    Int       // 0-6 (Sunday-Saturday)
+  startTime    String    // HH:mm
+  endTime      String    // HH:mm
+  breakStart   String?   // HH:mm
+  breakEnd     String?   // HH:mm
+  isActive     Boolean   @default(true)
+
+  @@unique([barberId, dayOfWeek])
+}
