@@ -1,76 +1,96 @@
-# Sentobar | Master Barber Console
+# Sentobar | Console Master de Barbearia
 
-**Sentobar** (Internal: Gendei) is a professional, multi-tenant micro-SaaS platform designed specifically for the high-end barbering industry. It combines precision scheduling, client management, and automated WhatsApp notifications to provide a premium experience for both shop owners and their clients.
+**Sentobar** é uma plataforma micro-SaaS profissional e multi-tenant (multi-empresa), projetada especificamente para o mercado de barbearias de alto padrão. Combina agendamento de precisão, gestão de clientes e notificações automatizadas via WhatsApp para oferecer uma experiência premium tanto para os donos de barbearia quanto para seus clientes.
 
-## 🚀 Overview
+---
 
-The platform is built with a **Master-Slave / Multi-tenant** architecture where each barbershop operates in a secure, isolated environment. The design language is **"Modern Noir"**—emphasizing precision, style, and luxury through a disciplined minimalist aesthetic.
+## 🚀 Visão Geral
+
+A plataforma foi construída com uma arquitetura **Multi-tenant**, onde cada barbearia opera em um ambiente seguro e isolado. A linguagem de design é **"Modern Noir"**—enfatizando precisão, estilo e luxo através de uma estética minimalista disciplinada.
 
 ---
 
 ## 💻 Frontend (Next.js + React + Tailwind)
 
-The frontend is built using **Next.js 15+** with the **App Router**, utilizing a custom design system inspired by high-end grooming lounges.
+O frontend utiliza **Next.js 15+** com **App Router**, utilizando um sistema de design personalizado inspirado em lounges de barbearia de luxo.
 
-### Key Pages
-- **Login (`/login`):** A cinematic, high-contrast entry point for shop owners and staff.
-- **Dashboard (`/dashboard`):** Real-time shop overview with revenue analytics, staff availability, and upcoming bookings.
-- **Calendar (`/calendar`):** The engine of the app—a high-precision interactive grid for managing weekly schedules.
-- **Services (`/services`):** Management interface for shop menus, pricing, and service durations.
-- **Clients (`/clients`):** CRM directory with visit history, membership status, and unified contact info.
-- **Bookings (`/book`):** A customer-centric, step-by-step reservation experience.
-- **Settings (`/settings`):** Configuration for operational rules, cancellation windows, and shop profiles.
-
-### Design System
-- **Typography:** Uses **Inter** for its mathematical precision and modern feel.
-- **Colors:** A palette of **Deep Charcoal (#1b1c1c)** and **Warm Gold (#735c00 / #ffe088)**.
-- **Components:** Built with a custom Atomic design approach using `class-variance-authority` (CVA) for variant management.
-- **Animations:** Powered by **motion/react** (Framer Motion) for smooth, purposeful transitions that guide user focus.
+### Páginas Principais
+- **Login (`/login`):** Ponto de entrada cinemático e de alto contraste.
+- **Painel/Dashboard (`/dashboard`):** Visão geral em tempo real com analíticos de receita e equipe.
+- **Agenda (`/calendar`):** O motor do app—uma grade interativa de alta precisão para gerenciar horários semanais.
+- **Serviços (`/services`):** Interface de gestão de menu, preços e durações.
+- **Clientes (`/clients`):** Diretório CRM com histórico de visitas e status de fidelidade.
+- **Agendamento Público (`/book`):** Experiência de reserva passo a passo focada no cliente.
+- **Configurações (`/settings`):** Regras operacionais, janelas de cancelamento e perfis da loja.
 
 ---
 
-## ⚙️ Backend (Node.js + Fastify + Prisma)
+## ⚙️ Backend (Prisma + API Routes)
 
-*Note: The platform is designed for a Serverless architecture on Vercel.*
+O backend é integrado ao Next.js através de **API Routes**, garantindo uma comunicação rápida e tipada.
 
-### Architecture
-- **Framework:** Fastify 4 (Strict Mode TypeScript) for high-performance HTTP routing.
-- **Isolation:** **Row-Level Isolation (Row-Level Security)** ensures that data from Barbershop A is never accessible to Barbershop B.
-- **ORM:** Prisma for type-safe database queries and migrations.
-- **Database:** PostgreSQL (Hosted via Supabase).
-
-### Business Rules (The "Law")
-- **RN-01 (Scheduling):** Overlapping bookings are blocked. Time slots are calculated automatically based on service duration.
-- **RN-02 (Cancellation):** 2-hour minimum lead time for client cancellations; overrides available only for Admins.
-- **RN-03 (Pricing):** All prices are handled in **cents (integer)** to avoid floating-point rounding errors.
-- **RN-04 (Tenancy):** `barbershopId` is strictly extracted from the JWT token, never from the request body.
-
-### Notifications
-- **WhatsApp Integration:** Powered by **Evolution API**.
-- **Queuing:** Built with **Upstash QStash** for serverless offloading of notification tasks.
-- **Cron Jobs:** Automated 24h and 1h reminders via **Vercel Cron**.
+### Arquitetura
+- **ORM:** Prisma para consultas ao banco de dados e migrações seguras.
+- **Validação:** **Zod** para validação de esquemas em todas as entradas de API.
+- **Autenticação:** **NextAuth.js** (configurado para JWT e credenciais).
+- **Banco de Dados:** PostgreSQL (Recomendado).
 
 ---
 
-## 🛡️ Security
+## 🛠️ Guia de Desenvolvimento e Testes
 
-1. **Authentication:** JWT stored in **HttpOnly, Secure, SameSite=Lax** cookies.
-2. **Rate Limiting:** Brute force protection on login using **Upstash Redis**.
-3. **Data Integrity:** Schema-level validation using **Zod** across every API endpoint and form.
+Siga este guia para configurar seu ambiente local e testar todas as funcionalidades.
+
+### 1. Configuração do Ambiente
+Crie um arquivo `.env` na raiz do projeto (use o `.env.example` como base):
+```env
+DATABASE_URL="postgresql://USUARIO:SENHA@localhost:5432/NOME_DO_BANCO"
+NEXTAUTH_SECRET="um-segredo-muito-forte"
+NEXTAUTH_URL="http://localhost:3000"
+```
+
+### 2. Preparação do Banco de Dados
+Com o PostgreSQL rodando, execute as migrations do Prisma para criar as tabelas:
+```bash
+npx prisma generate
+npx prisma migrate dev --name init
+```
+
+### 3. Rodando o Projeto
+```bash
+npm install
+npm run dev
+```
+O app estará disponível em `http://localhost:3000`.
+
+### 4. Como Testar as Funcionalidades
+
+#### Fluxo de Administrador:
+1. **Login:** Acesse `/login`. Como o banco está vazio, você precisará criar um usuário via script ou manualmente no banco para o primeiro acesso.
+2. **Dashboard:** Após logar, verifique se os cards de receita e equipe carregam corretamente.
+3. **Gestão de Serviços:** Vá em `/services` e tente adicionar um novo serviço. Verifique a API em `POST /api/services`.
+4. **Agenda:** Acesse `/calendar` para visualizar os agendamentos existentes.
+
+#### Fluxo do Cliente (Agendamento):
+1. **Reserva:** Acesse `/book`.
+2. **Seleção:** Escolha um serviço e avance para as informações pessoais.
+3. **Data/Hora:** Selecione um dia no calendário e um horário disponível.
+4. **Confirmação:** Clique em "Confirmar Agendamento". O sistema verificará automaticamente conflitos de horário via API.
+
+#### Teste de API (Endpoints):
+Você pode testar os endpoints usando ferramentas como Postman ou Insomnia:
+- `GET /api/services`: Lista todos os serviços disponíveis.
+- `GET /api/appointments`: Lista agendamentos (filtro por `barberId` opcional).
+- `POST /api/appointments`: Cria um agendamento com validação de colisão de horários.
 
 ---
 
-## 🛠️ Tech Stack Summary
+## 🛡️ Segurança e Regras de Negócio
 
-| Layer | Technologies |
-|---|---|
-| **Core** | Next.js 15, TypeScript 5, Node.js 20 |
-| **Frontend** | React 19, Tailwind CSS 4, Motion, Lucide-React |
-| **Backend** | Fastify, Zod, Prisma |
-| **Storage** | PostgreSQL (Supabase), Redis (Upstash) |
-| **Async** | QStash (Queues), Vercel Cron |
-| **Messaging** | Evolution API (WhatsApp) |
+1. **Prevenção de Colisão:** O sistema bloqueia agendamentos que se sobrepõem no mesmo barbeiro (`RN-03`).
+2. **Preços em Centavos:** Todos os valores monetários são tratados como inteiros (centavos) para evitar erros de arredondamento.
+3. **Integridade:** Campos como `email` e `phone` são validados via Zod antes de qualquer inserção.
 
 ---
 
-> **Design Philosophy:** "The difference between a haircut and a craft is precision." This platform is the digital toolset for that craft.
+> **Filosofia de Design:** "A diferença entre um corte de cabelo e uma obra é a precisão." Esta plataforma é o conjunto de ferramentas digitais para essa obra.
