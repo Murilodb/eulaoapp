@@ -1,4 +1,7 @@
+# Sentobar Database Configuration
+# After starting: npx prisma migrate dev && npx prisma db seed
 services:
+
   db:
     image: postgres:15-alpine
     container_name: sentobar-db

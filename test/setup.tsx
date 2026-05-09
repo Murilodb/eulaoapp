@@ -19,3 +19,12 @@ vi.mock('next-auth/react', () => ({
   signOut: vi.fn(),
   SessionProvider: ({ children }: { children: React.ReactNode }) => children,
 }));
+
+// Mock Next.js Image
+vi.mock('next/image', () => ({
+  __esModule: true,
+  default: ({ fill, ...props }: any) => {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img {...props} data-fill={fill ? "true" : undefined} referrerPolicy="no-referrer" />;
+  },
+}));

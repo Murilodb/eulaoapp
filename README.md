@@ -56,12 +56,18 @@ Para facilitar o desenvolvimento, você pode subir o banco de dados usando o Doc
 docker-compose up -d
 ```
 
-Com o banco de dados rodando, execute as migrations do Prisma para criar as tabelas:
+Com o banco de dados rodando, execute as migrations e o **seed** (para já incluir um usuário administrador):
 
 ```bash
 npx prisma generate
 npx prisma migrate dev --name init
+npx prisma db seed
 ```
+
+**Credenciais padrão do Seed:**
+- **Email:** `admin@sentobar.com.br`
+- **Senha:** `admin123`
+- **Role:** `ADMIN`
 
 ### 3. Rodando o Projeto
 ```bash
@@ -89,6 +95,28 @@ Você pode testar os endpoints usando ferramentas como Postman ou Insomnia:
 - `GET /api/services`: Lista todos os serviços disponíveis.
 - `GET /api/appointments`: Lista agendamentos (filtro por `barberId` opcional).
 - `POST /api/appointments`: Cria um agendamento com validação de colisão de horários.
+
+---
+
+## 🧪 Testes
+
+A plataforma utiliza **Vitest** e **React Testing Library** para garantir a integridade das regras de negócio e da interface.
+
+### Como Executar os Testes
+Para rodar todos os testes (unitários e de componentes):
+```bash
+npm test
+```
+
+Para rodar em modo watch (desenvolvimento):
+```bash
+npm run test:watch
+```
+
+### O que está sendo testado?
+- **Regras de Negócio:** Prevenção de conflito de horários e formatação financeira.
+- **Componentes:** Fluxo de Login (`/test/login.test.tsx`) e interações de interface.
+- **Segurança:** Validações de entrada via Zod.
 
 ---
 

@@ -10,8 +10,43 @@ import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 export default function LoginPage() {
+  const router = useRouter();
   const [stayLoggedIn, setStayLoggedIn] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (result?.error) {
+        setError("Credenciais inválidas. Tente novamente.");
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (err) {
+      setError("Ocorreu um erro inesperado.");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="relative min-h-screen bg-on-surface flex items-center justify-center overflow-hidden font-sans">
@@ -54,7 +89,12 @@ export default function LoginPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="p-6 pt-0 space-y-6">
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                {error && (
+                  <div className="bg-error/10 border border-error/20 text-error text-xs p-3 rounded-lg flex items-center justify-center font-bold">
+                    {error}
+                  </div>
+                )}
                 {/* Email Field */}
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-outline uppercase tracking-wider" htmlFor="email">Endereço de E-mail</label>
@@ -106,15 +146,14 @@ export default function LoginPage() {
 
                 {/* Login Button */}
                 <Button 
+                  type="submit"
                   variant="premium" 
                   size="xl" 
                   className="w-full text-base font-bold flex items-center justify-center gap-2 group h-14"
-                  asChild
+                  disabled={loading}
                 >
-                  <Link href="/dashboard">
-                    Entrar
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
+                  {loading ? "Entrando..." : "Entrar"}
+                  <ArrowRight className={cn("w-5 h-5 group-hover:translate-x-1 transition-transform", loading && "opacity-50")} />
                 </Button>
               </form>
 
