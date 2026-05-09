@@ -25,10 +25,10 @@ import Image from "next/image";
 export default function DashboardPage() {
   return (
     <div className="flex min-h-screen bg-background font-sans">
-      <Sidebar active="Dashboard" />
-
+      <Sidebar active="Painel" />
+      
       <main className="flex-1 ml-64 p-8 pt-24 min-h-screen">
-        <Header title="Shop Overview" description="Today is Thursday, October 24th, 2023" />
+        <Header title="Visão Geral" description="Hoje é Quinta-feira, 24 de Outubro, 2023" />
 
         <div className="max-w-7xl mx-auto space-y-6">
           {/* Stats Bento Grid */}

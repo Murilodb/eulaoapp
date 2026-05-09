@@ -21,7 +21,7 @@ export default function ClientsPage() {
 
   return (
     <div className="flex min-h-screen bg-background font-sans">
-      <Sidebar active="Clients" />
+      <Sidebar active="Clientes" />
       
       <main className="flex-1 ml-64 p-8 pt-24 min-h-screen">
         <Header title="Diretório de Clientes" description="Gerencie sua base de dados de clientes e visualize o histórico de atendimento." />

@@ -10,57 +10,34 @@ import { Plus, Clock, Scissors, Trash2, Edit, Star, Smile } from "lucide-react";
 import Image from "next/image";
 
 export default function ServicesPage() {
-  const services = [
-    { 
-      id: 1, 
-      name: "Degradê", 
-      price: "R$ 50,00", 
-      duration: "45 min", 
-      category: "Corte", 
-      image: "https://picsum.photos/seed/fade/600/400",
-      tag: "Popular"
-    },
-    { 
-      id: 2, 
-      name: "Americano", 
-      price: "R$ 45,00", 
-      duration: "35 min", 
-      category: "Corte", 
-      image: "https://picsum.photos/seed/american/600/400"
-    },
-    { 
-      id: 3, 
-      name: "Social", 
-      price: "R$ 40,00", 
-      duration: "30 min", 
-      category: "Corte", 
-      image: "https://picsum.photos/seed/social/600/400"
-    },
-    { 
-      id: 4, 
-      name: "Barba Sculpt", 
-      price: "R$ 35,00", 
-      duration: "25 min", 
-      category: "Barba", 
-      image: "https://picsum.photos/seed/beard/600/400"
-    },
-    { 
-      id: 5, 
-      name: "Combo Premium", 
-      price: "R$ 80,00", 
-      duration: "70 min", 
-      category: "Spa Completo", 
-      image: "https://picsum.photos/seed/combo/600/400",
-      tag: "Melhor Valor"
-    },
-  ];
+  const [services, setServices] = React.useState<any[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    async function fetchServices() {
+      try {
+        const response = await fetch("/api/services");
+        const data = await response.json();
+        setServices(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Erro ao buscar serviços:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchServices();
+  }, []);
+
+  const formatPrice = (priceInCents: number) => {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceInCents / 100);
+  };
 
   return (
     <div className="flex min-h-screen bg-background font-sans">
-      <Sidebar active="Services" />
+      <Sidebar active="Serviços" />
       
       <main className="flex-1 ml-64 p-8 pt-24 min-h-screen">
-        <Header title="Services Management" description="Configure and manage your shop's menu of professional services." />
+        <Header title="Gestão de Serviços" description="Configure e gerencie o menu de serviços profissionais da sua barbearia." />
 
         <div className="max-w-7xl mx-auto space-y-6">
           <div className="flex justify-between items-center mb-10">
@@ -82,7 +59,7 @@ export default function ServicesPage() {
                 <Card className="p-6 group hover:border-secondary/50 transition-all duration-300">
                   <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden border border-outline-variant/10">
                     <Image 
-                      src={service.image} 
+                      src={service.image || `https://picsum.photos/seed/${service.id}/600/400`} 
                       alt={service.name} 
                       fill 
                       className="object-cover group-hover:scale-110 transition-transform duration-700" 
@@ -97,17 +74,21 @@ export default function ServicesPage() {
 
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="text-xl font-bold text-primary tracking-tight">{service.name}</h3>
-                    <span className="text-xl font-bold text-secondary tracking-tighter">{service.price}</span>
+                    <span className="text-xl font-bold text-secondary tracking-tighter">
+                      {typeof service.price === 'number' ? formatPrice(service.price) : service.price}
+                    </span>
                   </div>
 
                   <div className="flex items-center text-outline gap-6 mb-8 mt-2">
                     <div className="flex items-center gap-1.5 font-bold">
                       <Clock className="w-4 h-4" />
-                      <span className="text-[10px] uppercase tracking-wider">{service.duration}</span>
+                      <span className="text-[10px] uppercase tracking-wider">
+                        {service.duration} {typeof service.duration === 'number' ? 'MIN' : ''}
+                      </span>
                     </div>
                     <div className="flex items-center gap-1.5 font-bold">
                       <Scissors className="w-4 h-4" />
-                      <span className="text-[10px] uppercase tracking-wider">{service.category}</span>
+                      <span className="text-[10px] uppercase tracking-wider">{service.category || 'Geral'}</span>
                     </div>
                   </div>
 

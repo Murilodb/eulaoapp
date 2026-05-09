@@ -49,8 +49,15 @@ NEXTAUTH_SECRET="um-segredo-muito-forte"
 NEXTAUTH_URL="http://localhost:3000"
 ```
 
-### 2. Preparação do Banco de Dados
-Com o PostgreSQL rodando, execute as migrations do Prisma para criar as tabelas:
+### 2. Preparação do Banco de Dados (Docker)
+Para facilitar o desenvolvimento, você pode subir o banco de dados usando o Docker:
+
+```bash
+docker-compose up -d
+```
+
+Com o banco de dados rodando, execute as migrations do Prisma para criar as tabelas:
+
 ```bash
 npx prisma generate
 npx prisma migrate dev --name init

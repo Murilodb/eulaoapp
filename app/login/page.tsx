@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 export default function LoginPage() {
   const [stayLoggedIn, setStayLoggedIn] = React.useState(false);
@@ -164,10 +165,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-function cn(...inputs: any[]) {
-  return twMerge(clsx(inputs));
-}
-
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";

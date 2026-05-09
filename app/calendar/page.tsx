@@ -60,9 +60,9 @@ export default function CalendarPage() {
           <div className="flex justify-between items-end mb-8">
             <div className="flex gap-4">
               <div className="flex bg-surface-container rounded-lg p-1 border border-outline-variant/10 shadow-sm">
-                <Button variant="ghost" size="sm" className="bg-surface shadow-sm font-bold text-primary">Week</Button>
-                <Button variant="ghost" size="sm" className="text-outline hover:text-primary">Month</Button>
-                <Button variant="ghost" size="sm" className="text-outline hover:text-primary">Day</Button>
+                <Button variant="ghost" size="sm" className="bg-surface shadow-sm font-bold text-primary">Semana</Button>
+                <Button variant="ghost" size="sm" className="text-outline hover:text-primary">Mês</Button>
+                <Button variant="ghost" size="sm" className="text-outline hover:text-primary">Dia</Button>
               </div>
             </div>
           </div>
@@ -150,46 +150,46 @@ export default function CalendarPage() {
               <Card className="p-6">
                 <div className="flex items-center gap-3 mb-8">
                   <PlusCircle className="text-secondary w-6 h-6" />
-                  <CardTitle className="text-lg font-bold">Quick Booking</CardTitle>
+                  <CardTitle className="text-lg font-bold">Agendamento Rápido</CardTitle>
                 </div>
                 
                 <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-outline uppercase tracking-wider">Client Name</label>
-                    <Input placeholder="e.g. John Wick" className="h-10 bg-surface border-outline-variant/20" />
+                    <label className="text-[10px] font-bold text-outline uppercase tracking-wider">Nome do Cliente</label>
+                    <Input placeholder="ex. João Silva" className="h-10 bg-surface border-outline-variant/20" />
                   </div>
 
                   <div className="space-y-2">
-                     <label className="text-[10px] font-bold text-outline uppercase tracking-wider">Service Type</label>
+                     <label className="text-[10px] font-bold text-outline uppercase tracking-wider">Tipo de Serviço</label>
                      <select className="flex h-10 w-full rounded-md border border-outline-variant/30 bg-surface px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary disabled:cursor-not-allowed disabled:opacity-50">
-                        <option>Classic Haircut</option>
-                        <option>Beard Trim & Sculpt</option>
-                        <option>Signature Fade</option>
-                        <option>Hot Towel Shave</option>
-                        <option>The Executive Treatment</option>
+                        <option>Corte Clássico</option>
+                        <option>Barba Esculpida</option>
+                        <option>Degradê Signature</option>
+                        <option>Barba com Toalha Quente</option>
+                        <option>Tratamento Executivo</option>
                      </select>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-outline uppercase tracking-wider">Date</label>
+                      <label className="text-[10px] font-bold text-outline uppercase tracking-wider">Data</label>
                       <Input type="date" className="h-10 text-xs bg-surface border-outline-variant/20" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-outline uppercase tracking-wider">Time</label>
+                      <label className="text-[10px] font-bold text-outline uppercase tracking-wider">Hora</label>
                       <Input type="time" className="h-10 text-xs bg-surface border-outline-variant/20" />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-outline uppercase tracking-wider">Assigned Barber</label>
+                    <label className="text-[10px] font-bold text-outline uppercase tracking-wider">Barbeiro Designado</label>
                     <div className="grid grid-cols-3 gap-2">
-                      {["Alex", "Jordan", "Blake"].map((name) => (
+                      {["Ricardo", "Jorge", "Bruno"].map((name) => (
                         <button 
                           key={name}
                           type="button" 
                           className={`py-2 rounded-lg border text-[10px] font-bold transition-all ${
-                            name === "Jordan" 
+                            name === "Jorge" 
                             ? "bg-secondary-container/10 border-secondary text-secondary" 
                             : "border-outline-variant/20 text-outline hover:border-outline"
                           }`}
@@ -201,7 +201,7 @@ export default function CalendarPage() {
                   </div>
 
                   <Button variant="premium" className="w-full h-12 shadow-luxury font-bold text-sm tracking-wide mt-4">
-                    Create Appointment
+                    Criar Agendamento
                   </Button>
                 </form>
               </Card>
